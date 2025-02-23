@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Compose</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 0px; margin: 0px; }
+        .email-form { max-width: 500px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
+        .email-form input, .email-form textarea { width: 100%; padding: 10px; margin: 10px 0; }
+        .email-form button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .email-form button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+
+    <div class="email-form">
+        <h2>Compose Email</h2>
+
+        <form hx-post="/compose-email/" hx-target="#response" hx-swap="innerHTML" method="POST">
+            {% csrf_token %}
+            <label for="recipient">To:</label>
+            <input type="email" name="recipient" placeholder="Recipient Email" required>
+
+            <label for="subject">Subject:</label>
+            <input type="text" name="subject" placeholder="Email Subject" required>
+
+            <label for="message">Message:</label>
+            <textarea name="message" rows="5" placeholder="Write your message..." required></textarea>
+
+            <button type="submit">Send Email</button>
+        </form>
+
+        <div id="response"></div>
+    </div>
+
+</body>
+</html>
